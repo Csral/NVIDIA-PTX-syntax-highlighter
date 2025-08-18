@@ -1,0 +1,25 @@
+{
+  "name": "nvidia-ptx-assembly-highlighter",
+  "displayName": "NVIDIA PTX Assembly Highlighter",
+  "description": "Syntax Highlighter for NVIDIA PTX Assembly",
+  "version": "0.0.1",
+  "engines": {
+    "vscode": "^1.103.0"
+  },
+  "categories": [
+    "Programming Languages"
+  ],
+  "contributes": {
+    "languages": [{
+      "id": "ptx",
+      "aliases": ["NVIDIA PTX Assembly", "ptx"],
+      "extensions": [".ptx"],
+      "configuration": "./language-configuration.json"
+    }],
+    "grammars": [{
+      "language": "ptx",
+      "scopeName": "source.ptx",
+      "path": "./syntaxes/ptx.tmLanguage.json"
+    }]
+  }
+}
