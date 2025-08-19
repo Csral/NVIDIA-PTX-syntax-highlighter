@@ -6,10 +6,22 @@
 			"include": "#comments"
 		},
 		{
-			"include": "#keywords"
+			"include": "#instructions"
+		},
+		{
+			"include": "#literals"
+		},
+		{
+			"include": "#states"
+		},
+		{
+			"include": "#datatypes"
 		},
 		{
 			"include": "#strings"
+		},
+		{
+			"include": "#preprocessor"
 		}
 	],
 	"repository": {
@@ -46,11 +58,25 @@
 				}
 			]
 		},
-		"keywords": {
-			"patterns": [{
-				"name": "keyword.control.ptx",
-				"match": "\\b(if|while|for|return)\\b"
-			}]
+		"instructions": {
+			"patterns": [
+				{
+					"name": "keyword.control.ptx",
+					"match": "\\b(ret)\\b"
+				},
+				{
+					"name": "keyword.operator",
+					"match": "\\b(add|sub|and|or|xor)\\b"
+				},
+				{
+					"name": "keyword.other",
+					"match": "\\b(st|ld)\\b"
+				},
+				{
+					"name": "keyword.other.dereference",
+					"match": "\\[\\%*[a-z|A-Z|0-9]+\\]"
+				}
+			]
 		},
 		"strings": {
 			"name": "string.quoted.double.ptx",
@@ -60,6 +86,64 @@
 				{
 					"name": "constant.character.escape.ptx",
 					"match": "\\\\."
+				}
+			]
+		},
+		"states": {
+			"name": "ptx.cuda.states",
+			"patterns": [
+				{
+					"name": "ptx.cuda.states.storage_locations",
+					"patterns": [
+						{
+							"name": "storage.modifier",
+							"match": "\\.\\b(global|param|reg|sreg|const|local|shared)\\b"
+						},
+						{
+							"name": "invalid.deprecated",
+							"match": "\\.\\b(tex)\\b"
+						}
+					]
+				}
+			]
+		},
+		"datatypes": {
+			"name": "ptx.cuda.datatypes",
+			"patterns": [
+				{
+					"name": "storage.type",
+					"match": "\\.\\b(u8|i8|u16|i16|u32|i32|u64|i64)\\b"
+				},
+				{
+					"name": "storage.type",
+					"match": "\\.\\b(b8|b16|b32|b64)\\b"
+				}
+			]
+		},
+		"preprocessor": {
+			"name": "ptx.keyword.preprocessor",
+			"patterns": [
+				{
+					"name": "ptx.keyword.preprocessor.metadata",
+					"patterns": [
+						{
+							"name": "markup.italic",
+							"match": "\\.\\b(version|target|address_size)\\b"
+						}
+					]
+				}
+			]
+		},
+		"literals": {
+			"name": "ptx.literals",
+			"patterns": [
+				{
+					"name": "constant.language",
+					"match": "(%tid|%ntid|%ctaid|%nctaid|%laneid|%warpid|%nwarpid|%gridid|%clusterid|%nclusterid|%cluster_ctaid|%cluster_nctaid|%cluster_ctarank|%cluster_nctarank|%is_explicit_cluster|%smid|%nsmid|%lanemask_eq|%lanemask_le|%lanemask_lt|%lanemask_ge|%lanemask_gt|%clock64|%clock|%clock_hi|%globaltimer|%globaltimer_lo|%globaltimer_hi|%total_smem_size|%aggr_smem_size|%dynamic_smem_size|%reserved_smem_offset_begin|%reserved_smem_offset_end|%reserved_smem_offset_cap|%current_graph_exec|%pm[0-7](?:_64)?|%envreg(?:[0-9]|[12][0-9]|3[1])|WARP_SZ)(?:\\.[xyz])?"
+				},
+				{
+					"name": "constant.numeric",
+					"match": "\\b[0-9]+\\b"
 				}
 			]
 		}

@@ -26,5 +26,23 @@
         ["(", ")"],
         ["\"", "\""],
         ["'", "'"]
-    ]
+    ],
+    // Symbols that needs nested colorization
+    "colorizedBracketPairs": [
+        [
+            "(",
+            ")"
+        ],
+        [
+            "[",
+            "]"
+        ],
+        [
+            "{",
+            "}"
+        ]
+    ],
+    // Symbols in language that end a statement flow
+    "autoCloseBefore": ";:}])> \n\t"
+
 }
